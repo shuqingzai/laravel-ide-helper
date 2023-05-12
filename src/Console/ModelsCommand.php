@@ -876,6 +876,23 @@ class ModelsCommand extends Command
         }
     }
 
+    /**
+     * @param string $name
+     * @return array{type: string, arguments: string, comment: string,}
+     */
+    public function getMethod(string  $name): array
+    {
+        return $this->methods[$name] ?? [];
+    }
+
+    /**
+     * @return array<int, array{type: string, arguments: string, comment: string,}>
+     */
+    public function getMethods(): array
+    {
+        return $this->methods;
+    }
+
     public function setMethod($name, $type = '', $arguments = [], $comment = '')
     {
         $methods = array_change_key_case($this->methods, CASE_LOWER);
@@ -890,7 +907,7 @@ class ModelsCommand extends Command
 
     public function unsetMethod($name)
     {
-        unset($this->methods[strtolower($name)]);
+        unset($this->methods[$name]);
     }
 
     public function getMethodType(Model $model, string $classType)
